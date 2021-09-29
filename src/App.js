@@ -7,13 +7,6 @@ import Card2 from "./components/Card2.js";
 
 export default function App() {
 
-  let [city, setCity] = useState("Paris");
-  let [dayNumber, setDayNumber] = useState(1);
-
-  const apiKey = "762d7ae0fa04febf1d3f0e5ef97a8d4c";
-
-  const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
-
   let day1, day2, day3, day4;
   let a1, a2, a3, a4;
   let place;
@@ -24,6 +17,21 @@ export default function App() {
   let speed1, speed2, speed3, speed4;
   let pop1, pop2, pop3, pop4;
   let main1, main2, main3, main4;
+
+  let [dayNumber, setDayNumber] = useState(1);
+  let [city, setCity] = useState("Paris");
+
+  useEffect(() => {
+    const apiKey = "762d7ae0fa04febf1d3f0e5ef97a8d4c";
+
+    const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
+  
+    fetch(url)
+    .then(response => response.json())
+    .then((data) => parseWeather(data))
+    .catch((e) => console.log("Error with fetching data: " + e.message));
+
+  }, [city]);
 
   function parseWeather(data) {
     console.log("inside");
@@ -186,14 +194,6 @@ export default function App() {
       </div>
     </div>
   );
-
-  useEffect(() => {
-    fetch(url)
-    .then(response => response.json())
-    .then((data) => parseWeather(data))
-    .catch((e) => console.log("Error with fetching data: " + e.message));
-
-  }, [city]);
 
   switch(dayNumber) {
     case 1:

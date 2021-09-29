@@ -14,11 +14,7 @@ function App() {
     apiKey: "762d7ae0fa04febf1d3f0e5ef97a8d4c",
     fetchByLoc: function (lat, lon) {
       fetch(
-        "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-          lat +
-          "&lon=" +
-          lon +
-          "&units=metric&appid=" +
+        "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon +"&units=metric&appid=" +
           this.apiKey
       )
         .then((response) => response.json())
@@ -31,9 +27,7 @@ function App() {
     fetchWeather: function (city) {
       fetch(
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
-          city +
-          "&units=metric&appid=" +
-          this.apiKey
+          city + "&units=metric&appid=" + this.apiKey
       )
         .then((response) => response.json())
         .then((data) => {
@@ -86,21 +80,7 @@ function App() {
       const pop4 = data.list[22].pop;
       const main4 = data.list[22].weather[0].main;
 
-      let months = [
-        "",
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      ];
+      let months = ["","January","February","March","April","May","June", "July","August","September","October","November","December"];
 
       function dateList(date) {
         let myarr1 = date.split(" ");
@@ -124,15 +104,7 @@ function App() {
       let arr4 = dateList(date4);
       let dz = new Date(`${arr4[0]} ${arr4[1]}, ${arr4[2]}`);
 
-      let weekday = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ];
+      let weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
       day1 = weekday[d.getDay()];
       day2 = weekday[dx.getDay()];
       day3 = weekday[dy.getDay()];
@@ -199,32 +171,15 @@ function App() {
           <Search searching={this.search} />
 
           <div className="Card Loading">
-            <Card1
-              day={day}
-              date={`${arr[0]} ${arr[1]} ${arr[2]}`}
-              place={place}
-              icon={"https://openweathermap.org/img/wn/" + icon + ".png"}
-              desc={description}
-              temp={Math.round(Number(temp)) + "°C"}
+            <Card1 day={day} date={`${arr[0]} ${arr[1]} ${arr[2]}`} place={place} 
+            icon={"https://openweathermap.org/img/wn/" + icon + ".png"} desc={description} temp={Math.round(Number(temp)) + "°C"}
             />
 
-            <Card2
-              changeDay={this.changeDay}
-              pop={pop + " %"}
-              humidity={humidity + " %"}
-              speed={speed + " km/h"}
-              day1={day1.substr(0, 3)}
-              icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"}
-              temp1={Math.round(Number(temp1)) + "°C"}
-              day2={day2.substr(0, 3)}
-              icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"}
-              temp2={Math.round(Number(temp2)) + "°C"}
-              day3={day3.substr(0, 3)}
-              icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"}
-              temp3={Math.round(Number(temp3)) + "°C"}
-              day4={day4.substr(0, 3)}
-              icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"}
-              temp4={Math.round(Number(temp4)) + "°C"}
+            <Card2 changeDay={this.changeDay} pop={pop + " %"} humidity={humidity + " %"} speed={speed + " km/h"}
+              day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
+              day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
+              day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
+              day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
             />
           </div>
         </div>

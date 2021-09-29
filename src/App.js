@@ -6,15 +6,10 @@ import Card2 from "./components/Card2.js";
 function App() {
   let D = null;
 
-  let day1, day2, day3, day4;
-  let icon1, icon2, icon3, icon4;
-  let temp1, temp2, temp3, temp4;
-
   let weather = {
     apiKey: "762d7ae0fa04febf1d3f0e5ef97a8d4c",
     fetchByLoc: function (lat, lon) {
-      fetch(
-        "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon +"&units=metric&appid=" +
+      fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon +"&units=metric&appid=" +
           this.apiKey
       )
         .then((response) => response.json())
@@ -25,8 +20,7 @@ function App() {
         .catch((e) => console.log("Error with fetching data: " + e.message));
     },
     fetchWeather: function (city) {
-      fetch(
-        "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      fetch("https://api.openweathermap.org/data/2.5/forecast?q=" +
           city + "&units=metric&appid=" + this.apiKey
       )
         .then((response) => response.json())
@@ -41,46 +35,42 @@ function App() {
       const country = data.city.country;
       // DAY 1
       let date1 = data.list[0].dt_txt;
-      icon1 = data.list[0].weather[0].icon;
+      const icon1 = data.list[0].weather[0].icon;
       const description1 = data.list[0].weather[0].description;
-      temp1 = data.list[0].main.temp;
+      const temp1 = data.list[0].main.temp;
       const humidity1 = data.list[0].main.humidity;
-      const speed1 =
-        Math.round(Number(data.list[0].wind.speed) * 3.6 * 100) / 100;
+      const speed1 = Math.round(Number(data.list[0].wind.speed) * 3.6 * 100) / 100;
       const pop1 = data.list[0].pop;
       const main1 = data.list[0].weather[0].main;
       // DAY 2
       let date2 = data.list[7].dt_txt;
-      icon2 = data.list[7].weather[0].icon;
+      const icon2 = data.list[7].weather[0].icon;
       const description2 = data.list[7].weather[0].description;
-      temp2 = data.list[7].main.temp;
+      const temp2 = data.list[7].main.temp;
       const humidity2 = data.list[7].main.humidity;
-      const speed2 =
-        Math.round(Number(data.list[7].wind.speed) * 3.6 * 100) / 100;
+      const speed2 = Math.round(Number(data.list[7].wind.speed) * 3.6 * 100) / 100;
       const pop2 = data.list[7].pop;
       const main2 = data.list[7].weather[0].main;
       // DAY 3
       let date3 = data.list[15].dt_txt;
-      icon3 = data.list[15].weather[0].icon;
+      const icon3 = data.list[15].weather[0].icon;
       const description3 = data.list[15].weather[0].description;
-      temp3 = data.list[15].main.temp;
+      const temp3 = data.list[15].main.temp;
       const humidity3 = data.list[15].main.humidity;
-      const speed3 =
-        Math.round(Number(data.list[15].wind.speed) * 3.6 * 100) / 100;
+      const speed3 = Math.round(Number(data.list[15].wind.speed) * 3.6 * 100) / 100;
       const pop3 = data.list[15].pop;
       const main3 = data.list[15].weather[0].main;
       // DAY 4
       let date4 = data.list[22].dt_txt;
-      icon4 = data.list[22].weather[0].icon;
+      const icon4 = data.list[22].weather[0].icon;
       const description4 = data.list[22].weather[0].description;
-      temp4 = data.list[22].main.temp;
+      const temp4 = data.list[22].main.temp;
       const humidity4 = data.list[22].main.humidity;
-      const speed4 =
-        Math.round(Number(data.list[22].wind.speed) * 3.6 * 100) / 100;
+      const speed4 = Math.round(Number(data.list[22].wind.speed) * 3.6 * 100) / 100;
       const pop4 = data.list[22].pop;
       const main4 = data.list[22].weather[0].main;
 
-      let months = ["","January","February","March","April","May","June", "July","August","September","October","November","December"];
+      const months = ["","January","February","March","April","May","June", "July","August","September","October","November","December"];
 
       function dateList(date) {
         let myarr1 = date.split(" ");
@@ -92,25 +82,25 @@ function App() {
         return [d, month, year];
       }
 
-      let arr1 = dateList(date1);
+      const arr1 = dateList(date1);
       let d = new Date(`${arr1[0]} ${arr1[1]}, ${arr1[2]}`);
 
-      let arr2 = dateList(date2);
+      const arr2 = dateList(date2);
       let dx = new Date(`${arr2[0]} ${arr2[1]}, ${arr2[2]}`);
 
-      let arr3 = dateList(date3);
+      const arr3 = dateList(date3);
       let dy = new Date(`${arr3[0]} ${arr3[1]}, ${arr3[2]}`);
 
-      let arr4 = dateList(date4);
+      const arr4 = dateList(date4);
       let dz = new Date(`${arr4[0]} ${arr4[1]}, ${arr4[2]}`);
 
-      let weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-      day1 = weekday[d.getDay()];
-      day2 = weekday[dx.getDay()];
-      day3 = weekday[dy.getDay()];
-      day4 = weekday[dz.getDay()];
+      const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      const day1 = weekday[d.getDay()];
+      const day2 = weekday[dx.getDay()];
+      const day3 = weekday[dy.getDay()];
+      const day4 = weekday[dz.getDay()];
 
-      let place = cityname + ", " + country;
+      const place = cityname + ", " + country;
 
       // return [place, day1, day2, day3, day4, arr1, arr2, arr3, arr4, icon1, icon2, icon3, icon4, desc1, desc2, desc3, desc4,
       //       temp1, temp2, temp3, temp4, pop1, pop2, pop3, pop4, hum1, hum2, hum3, hum4, speed1, speed2, speed3, speed4,
@@ -167,7 +157,7 @@ function App() {
       console.log("im here");
       console.log("Day number:" + DayNumber);
       return (
-        <div> Hey Jude</div>
+          <div> Hey Jude</div>
       );
       // return (
       //   <div className="App">

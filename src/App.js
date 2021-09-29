@@ -135,8 +135,7 @@ function App() {
 
       switch (DayNumber) {
         case 1:
-          console.log("bruh is this even working");
-          this.createTemplate(day1, arr1,place,icon1,description1,temp1, pop1, humidity1,speed1);
+          this.createTemplate(DayNumber, day1, arr1,place,icon1,description1,temp1, pop1, humidity1,speed1);
           //CardBackground(main1);
           break;
         case 2:
@@ -164,26 +163,30 @@ function App() {
       this.displayWeather(D, n);
     },
 
-    createTemplate: function (day, arr,place,icon,description,temp,pop,humidity,speed) {
+    createTemplate: function (DayNumber, day, arr,place,icon,description,temp,pop,humidity,speed) {
       console.log("im here");
+      console.log("Day number:" + DayNumber);
       return (
-        <div className="App">
-          <Search searching={this.search} />
-
-          <div className="Card Loading">
-            <Card1 day={day} date={`${arr[0]} ${arr[1]} ${arr[2]}`} place={place} 
-            icon={"https://openweathermap.org/img/wn/" + icon + ".png"} desc={description} temp={Math.round(Number(temp)) + "°C"}
-            />
-
-            <Card2 changeDay={this.changeDay} pop={pop + " %"} humidity={humidity + " %"} speed={speed + " km/h"}
-              day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
-              day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
-              day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
-              day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
-            />
-          </div>
-        </div>
+        <div> Hey Jude</div>
       );
+      // return (
+      //   <div className="App">
+      //     <Search searching={this.search} />
+
+      //     <div className="Card Loading">
+      //       <Card1 day={day} date={`${arr[0]} ${arr[1]} ${arr[2]}`} place={place} 
+      //       icon={"https://openweathermap.org/img/wn/" + icon + ".png"} desc={description} temp={Math.round(Number(temp)) + "°C"}
+      //       />
+
+      //       <Card2 changeDay={this.changeDay} pop={pop + " %"} humidity={humidity + " %"} speed={speed + " km/h"}
+      //         day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
+      //         day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
+      //         day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
+      //         day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+      //       />
+      //     </div>
+      //   </div>
+      // );
     }
   };
 

@@ -21,20 +21,27 @@ export default function App() {
   let [dayNumber, setDayNumber] = useState(1);
   let [city, setCity] = useState("Paris");
 
-  useEffect(() => {
-    const apiKey = "762d7ae0fa04febf1d3f0e5ef97a8d4c";
+  const apiKey = "762d7ae0fa04febf1d3f0e5ef97a8d4c";
+  const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
 
-    const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
-  
+  let [loading, setLoading] = useState(true);
+
+  useEffect(() => { 
+    setLoading(true);
+
     fetch(url)
     .then(response => response.json())
-    .then((data) => parseWeather(data))
+    .then((data) => {
+      console.log("I am inside then(data)"); 
+      parseWeather(data);
+      setLoading(false);
+    })
     .catch((e) => console.log("Error with fetching data: " + e.message));
 
   }, [city]);
 
   function parseWeather(data) {
-    console.log("inside");
+    console.log("inside parseWeather");
     const cityname = data.city.name;
     const country = data.city.country;
      place = cityname + ", " + country;
@@ -108,7 +115,7 @@ export default function App() {
      day2 = weekday[dx.getDay()];
      day3 = weekday[dy.getDay()];
      day4 = weekday[dz.getDay()];
-     console.log(day1);
+     console.log(day1, day2, day3, day4);
   }
 
   function search(city) {
@@ -119,91 +126,99 @@ export default function App() {
     setDayNumber(number);
   }
   
-  let template1 = (
-    <div className="App">
-      <Search searching={search} />
+  if(loading === false) { //if data has been successfully fetched.
+    console.log(day1);
+    let template1 = (
+      <div className="App">
+        <Search searching={search} />
 
-      <div className="Card Loading">
-        <Card1 day={day1} date={a1} place={place} 
-        icon={"https://openweathermap.org/img/wn/" + icon1 + ".png"} desc={desc1} temp={Math.round(Number(temp1)) + "°C"}
-      />
-
-        <Card2 changeDay={changeDay} pop={pop1 + " %"} humidity={hum1 + " %"} speed={speed1 + " km/h"}
-          day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
-          day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
-          day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
-          day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+        <div className="Card">
+          <Card1 day={day1} date={a1} place={place} 
+          icon={"https://openweathermap.org/img/wn/" + icon1 + ".png"} desc={desc1} temp={Math.round(Number(temp1)) + "°C"}
         />
+
+          <Card2 changeDay={changeDay} pop={pop1 + " %"} humidity={hum1 + " %"} speed={speed1 + " km/h"}
+            day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
+            day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
+            day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
+            day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 
-  let template2 = (
-    <div className="App">
-      <Search searching={search} />
+    let template2 = (
+      <div className="App">
+        <Search searching={search} />
 
-      <div className="Card Loading">
-        <Card1 day={day2} date={a2} place={place} 
-        icon={"https://openweathermap.org/img/wn/" + icon2 + ".png"} desc={desc2} temp={Math.round(Number(temp2)) + "°C"}
-      />
-
-        <Card2 changeDay={changeDay} pop={pop2 + " %"} humidity={hum2 + " %"} speed={speed2 + " km/h"}
-          day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
-          day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
-          day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
-          day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+        <div className="Card">
+          <Card1 day={day2} date={a2} place={place} 
+          icon={"https://openweathermap.org/img/wn/" + icon2 + ".png"} desc={desc2} temp={Math.round(Number(temp2)) + "°C"}
         />
+
+          <Card2 changeDay={changeDay} pop={pop2 + " %"} humidity={hum2 + " %"} speed={speed2 + " km/h"}
+            day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
+            day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
+            day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
+            day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 
-  let template3 = (
-    <div className="App">
-      <Search searching={search} />
+    let template3 = (
+      <div className="App">
+        <Search searching={search} />
 
-      <div className="Card Loading">
-        <Card1 day={day3} date={a3} place={place} 
-        icon={"https://openweathermap.org/img/wn/" + icon3 + ".png"} desc={desc3} temp={Math.round(Number(temp3)) + "°C"}
-      />
-
-        <Card2 changeDay={changeDay} pop={pop3 + " %"} humidity={hum3 + " %"} speed={speed3 + " km/h"}
-          day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
-          day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
-          day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
-          day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+        <div className="Card">
+          <Card1 day={day3} date={a3} place={place} 
+          icon={"https://openweathermap.org/img/wn/" + icon3 + ".png"} desc={desc3} temp={Math.round(Number(temp3)) + "°C"}
         />
+
+          <Card2 changeDay={changeDay} pop={pop3 + " %"} humidity={hum3 + " %"} speed={speed3 + " km/h"}
+            day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
+            day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
+            day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
+            day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 
-  let template4 = (
-    <div className="App">
-      <Search searching={search} />
+    let template4 = (
+      <div className="App">
+        <Search searching={search} />
 
-      <div className="Card Loading">
-        <Card1 day={day4} date={a4} place={place} 
-        icon={"https://openweathermap.org/img/wn/" + icon4 + ".png"} desc={desc4} temp={Math.round(Number(temp4)) + "°C"}
-      />
-
-        <Card2 changeDay={changeDay} pop={pop4 + " %"} humidity={hum4 + " %"} speed={speed4 + " km/h"}
-          day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
-          day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
-          day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
-          day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+        <div className="Card">
+          <Card1 day={day4} date={a4} place={place} 
+          icon={"https://openweathermap.org/img/wn/" + icon4 + ".png"} desc={desc4} temp={Math.round(Number(temp4)) + "°C"}
         />
-      </div>
-    </div>
-  );
 
-  switch(dayNumber) {
-    case 1:
-      return template1;
-    case 2:
-      return template2;
-    case 3:
-      return template3;
-    case 4:
-      return template4;
+          <Card2 changeDay={changeDay} pop={pop4 + " %"} humidity={hum4 + " %"} speed={speed4 + " km/h"}
+            day1={day1.substr(0, 3)} icon1={"https://openweathermap.org/img/wn/" + icon1 + ".png"} temp1={Math.round(Number(temp1)) + "°C"}
+            day2={day2.substr(0, 3)} icon2={"https://openweathermap.org/img/wn/" + icon2 + ".png"} temp2={Math.round(Number(temp2)) + "°C"}
+            day3={day3.substr(0, 3)} icon3={"https://openweathermap.org/img/wn/" + icon3 + ".png"} temp3={Math.round(Number(temp3)) + "°C"}
+            day4={day4.substr(0, 3)} icon4={"https://openweathermap.org/img/wn/" + icon4 + ".png"} temp4={Math.round(Number(temp4)) + "°C"}
+          />
+        </div>
+      </div>
+    );
+
+    switch(dayNumber) {
+      case 1:
+        return template1;
+      case 2:
+        return template2;
+      case 3:
+        return template3;
+      case 4:
+        return template4;
+    }
   }
+  else {
+    return (
+      <div className="Loading"></div>
+    );
+  }  
   
 }

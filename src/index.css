@@ -200,20 +200,21 @@ tr td:nth-child(2) {
 .Days:hover img {
   filter: invert(1);
 }
-
-/* .Card.Loading {
+/* 
+ .App.Loading {
   visibility: hidden;
   max-height: 20px;
   position: relative;
 }
-
-.Card.Loading::after {
+ */
+.Loading {
   visibility: visible;
   content: "Loading...";
   color: black;
+  background-color: burlywood;
   position: absolute;
   top: 0;
-} */
+} 
 
 
 

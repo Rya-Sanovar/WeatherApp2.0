@@ -6,11 +6,46 @@ html {
   height: 100%;
 }
 
+body {
+  background-image: url("https://source.unsplash.com/1600x900/?city");
+}
+
+/* .location-search-input {
+  border: none;
+  outline: none;
+  padding: 0.2rem 1rem;
+  border-radius: 15px;
+  background: #3b3d54;
+  color: white;
+  font-family: 'roboto', sans-serif;
+  font-size: 1 rem;
+  width: 500px;
+  height: 40px;
+}
+
+.input-suggestion {
+  font-family: 'roboto', sans-serif;
+  width: 500px;
+  height: 60px;
+  background-color: #3b3d54;
+  border-bottom: 1px dotted black;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+} */
+
 .Search {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 12px auto;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 button {
@@ -46,6 +81,16 @@ input {
   font-size: 105%;
 }
 
+.Autocomplete {
+  border: none;
+  outline: none;
+  padding: 0.1rem 1rem;
+  width: 500px;
+  height: 50px;
+  color: white;
+  background: #4c4f68;
+}
+
 .Card {
   display: flex;
   margin: 12px 20rem;
@@ -54,6 +99,7 @@ input {
 }
 
 .Card-1 {
+  background-image: url("https://source.unsplash.com/1600x900/?Clouds");
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -208,8 +254,6 @@ tr td:nth-child(2) {
 }
  */
 .Loading {
-  visibility: visible;
-  content: "Loading...";
   color: black;
   background-color: burlywood;
   position: absolute;

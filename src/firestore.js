@@ -1,4 +1,5 @@
-import { initializeApp } from 'firebase/app';
+import firebase from "firebase/app";
+console.log(firebase);
 import { getFirestore } from 'firebase/firestore/lite';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
@@ -11,7 +12,7 @@ const firebaseConfig = {
   appId: "1:818231467774:web:35a8ecce947d803f940faf"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default db;

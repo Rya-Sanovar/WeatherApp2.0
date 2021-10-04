@@ -3,7 +3,6 @@ import { useState } from "react";
 import Search from "./components/Search.js";
 import Card1 from "./components/Card1.js";
 import Card2 from "./components/Card2.js";
-// import LocationSearchInput from "./components/LocationSearchInput.js";
 // import db from "./firestore.js";
 
 // const firebase = require("firebase");
@@ -30,7 +29,7 @@ export default function App() {
   let [hum1, setHum1] = useState("");
   let [speed1, setSpeed1] = useState("");
   let [pop1, setPop1] = useState("");
-  let [city, setCity] = useState("Paris");
+  let [city, setCity] = useState("paris");
   let [lat,setLat] = useState("");
   let [lon,setLon] = useState("");
 
@@ -39,27 +38,29 @@ export default function App() {
 
   let [loading, setLoading] = useState(true);
 
-  // navigator.geolocation.watchPosition(loc => {
-  //   setLat(loc.coords.latitude);
-  //   setLon(loc.coords.longitude);
-  //   reverseGeocode(lat, lon);
-  // });
+  navigator.geolocation.watchPosition(loc => {
+    setLat(loc.coords.latitude);
+    setLon(loc.coords.longitude);
+    console.log("this is");
+    console.log(lon, lat);
+    reverseGeocode(lat, lon);
+  });
 
-  // function reverseGeocode( lat, lon) {
-  //   fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+lon+","
-  //   +lat+".json?access_token=pk.eyJ1IjoiZWx5bWFzLW1hZ3VzIiwiYSI6ImNrdTl5aWViNTBibXgyb2xtbXgzdGVwNDUifQ.8TZFi8w6Z524c9Shn-DxRg",
-  //   {
-  //     headers: {
-  //       'access-control-allow-origin' : '*'
-  //     }
-  //   }
-  //   )
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     setCity(data.features[0].context[0].text);
-  //   })
-  //   .catch((e) => console.log("Error with reverse geocoding: " + e.message));
-  // }
+  function reverseGeocode(lat, lon) {
+    fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+lon+","
+    +lat+".json?access_token=pk.eyJ1IjoiZWx5bWFzLW1hZ3VzIiwiYSI6ImNrdTl5aWViNTBibXgyb2xtbXgzdGVwNDUifQ.8TZFi8w6Z524c9Shn-DxRg"//,
+    // {
+    //   headers: {
+    //     'access-control-allow-origin' : '*'
+    //   }
+    // }
+    )
+    .then((response) => response.json())
+    .then((data) => {
+      setCity(data.features[0].context[0].text);
+    })
+    .catch((e) => console.log("Error with reverse geocoding: " + e.message));
+  }
 
   useEffect(() => { 
     fetch(url)

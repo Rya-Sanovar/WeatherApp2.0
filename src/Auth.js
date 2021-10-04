@@ -15,6 +15,7 @@ firebase.initializeApp({
 
 class Auth extends Component {
   state = { isSignedIn: false };
+
   uiConfig = {
     signInFlow: "popup",
     signInOptions: [
@@ -32,22 +33,38 @@ class Auth extends Component {
     })
   }
 
+  checkIfBits(email) {
+    // example of email is "f20200306@hyderabad.bits-pilani.ac.in"
+    let suffix = email.substring(email.indexOf('.')+1)
+    if (suffix === "bits-pilani.ac.in") {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   render() {
     return (
       <div className="Auth">
         {this.state.isSignedIn ? (
-          <div>
-          <App />
-          <span>
-            <div>Signed In!</div>
-            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-            <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
-            <h2>Your email: {firebase.auth().currentUser.email}</h2>
-          </span>
+          <div className="sign-in-wrapper">
+            <button className="sign-out-btn" onClick={() => firebase.auth().signOut()}>Sign Out</button>
+            <h2 className="welcome-sign">Welcome {firebase.auth().currentUser.displayName}!</h2>
+            {this.checkIfBits(firebase.auth().currentUser.email) ? 
+              (
+                <App />
+              ) 
+              : (
+                <div className="not-bits-wrapper">
+                  <h1 className="not-from-bits">Use BITS mail to access</h1>
+                </div>              
+              )}
           </div>
-        ) : (
-          <div className="Signing-in">
-            <h1>Sign in using BITS mail</h1>
+        ) 
+        : (
+          <div className="start-wrapper">
+            <h1 className="start-comment">Sign in using BITS mail</h1>
             <StyledFirebaseAuth
               uiConfig={this.uiConfig}
               firebaseAuth={firebase.auth()}

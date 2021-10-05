@@ -13,6 +13,8 @@ firebase.initializeApp({
   appId: "1:818231467774:web:35a8ecce947d803f940faf"
 });
 
+var db = firebase.firestore();
+
 class Auth extends Component {
   state = { isSignedIn: false };
 
@@ -53,7 +55,7 @@ class Auth extends Component {
             <h2 className="welcome-sign">Welcome {firebase.auth().currentUser.displayName}!</h2>
             {this.checkIfBits(firebase.auth().currentUser.email) ? 
               (
-                <App />
+                <App db={db}/>
               ) 
               : (
                 <div className="not-bits-wrapper">

@@ -3,13 +3,9 @@ import { useState } from "react";
 import Search from "./components/Search.js";
 import Card1 from "./components/Card1.js";
 import Card2 from "./components/Card2.js";
-// import db from "./firestore.js";
+require("firebase/firestore");
 
-// const firebase = require("firebase");
-// // Required for side-effects
-// require("firebase/firestore");
-
-export default function App() {
+export default function App(props) {
 
   let [day1, setDay1] = useState("");
   let [day2, setDay2] = useState("");
@@ -34,6 +30,7 @@ export default function App() {
   let [lon,setLon] = useState("");
 
   const apiKey = "df90cc57d556d7bad5a5659446b1dd68";
+  const mapboxkey = "pk.eyJ1IjoiZWx5bWFzLW1hZ3VzIiwiYSI6ImNrdTl5aWViNTBibXgyb2xtbXgzdGVwNDUifQ.8TZFi8w6Z524c9Shn-DxRg";
   const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
 
   let [loading, setLoading] = useState(true);
@@ -47,17 +44,19 @@ export default function App() {
   });
 
   function reverseGeocode(lat, lon) {
-    fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+lon+","
-    +lat+".json?access_token=pk.eyJ1IjoiZWx5bWFzLW1hZ3VzIiwiYSI6ImNrdTl5aWViNTBibXgyb2xtbXgzdGVwNDUifQ.8TZFi8w6Z524c9Shn-DxRg"//,
-    // {
-    //   headers: {
-    //     'access-control-allow-origin' : '*'
-    //   }
-    // }
-    )
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lon},${lat}.json?access_token=${mapboxkey}`)
     .then((response) => response.json())
     .then((data) => {
       setCity(data.features[0].context[0].text);
+      props.db.collection("location-history").doc(`${city}`).set({
+        current_location: `${city}`
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });   
     })
     .catch((e) => console.log("Error with reverse geocoding: " + e.message));
   }
@@ -132,7 +131,17 @@ export default function App() {
   }
 
   function search(city) {
-    setCity(city);
+    setCity(city);   
+    props.db.collection("search-history").add({
+      city_searched: `${city}`
+    })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    }); 
+    
     // db.collection("search-history").add({
     //   city_name : city
     // });

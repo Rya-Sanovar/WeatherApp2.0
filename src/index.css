@@ -126,20 +126,31 @@ body {
 }
 
 
-.Search {
+/* .Search {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 4px auto;
-}
+} */
 
 .input-wrapper {
   display: flex;
   flex-direction: column;
 }
 
+.Autocomplete {
+  width: 535px;
+  height: 30px;
+  line-height: 35px;
+  border-bottom: 1px solid whitesmoke;
+  border-radius: 10px;
+  position: relative;
+  z-index: 400;
+}
+
 .search-btn {
-  margin: 0.3rem;
+  margin-left: 0.3rem;
+  margin-bottom: 0.3rem;
   width: 1.7rem;
   height: 1.7rem;
   border-radius: 50%;
@@ -150,8 +161,12 @@ body {
   transition: background 0.1s ease-in-out;
 }
 
-.Searchbar:hover {
+.Searchbar:hover, .Autocomplete:hover {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+.Autocomplete:hover {
+  cursor: pointer;
 }
 
 button:hover {
@@ -169,21 +184,29 @@ input {
   color: white;
   font-family: inherit;
   font-size: 105%;
+  width: 500px;
+  height: 30px;
 }
 
-.Autocomplete {
-  outline: none;
-  padding: 0.1rem 1rem;
-  width: 500px;
-  height: 40px;
+.outer-wrap {
+  display: inline-block;
+}
+
+.auto-wrapper {
   color: white;
   background: #4c4f68;
   text-align: left;
-  line-height: 40px;
   border-radius: 10px;
   margin-top: 5px;
   border: 2px solid #3b3d54;
-}
+  position: absolute;
+  z-index: 400;
+ }
+
+ .hidden {
+   visibility: hidden;
+ }
+
 
 .App {
   margin-bottom: 40px;

@@ -35,21 +35,28 @@ export default function App(props) {
 
   let [loading, setLoading] = useState(true);
 
-  navigator.geolocation.watchPosition(loc => {
-    setLat(loc.coords.latitude);
-    setLon(loc.coords.longitude);
-    console.log("this is");
-    console.log(lon, lat);
-    reverseGeocode(lat, lon);
-  });
+  function trackUser() {
+    navigator.geolocation.getCurrentPosition(loc => {
+      setLat(loc.coords.latitude);
+      setLon(loc.coords.longitude);
+      console.log("this is");
+      console.log(lon, lat);
+      reverseGeocode(lat, lon);
+    });
+  }
 
+  setInterval(trackUser, 40000);
+  
   function reverseGeocode(lat, lon) {
     fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lon},${lat}.json?access_token=${mapboxkey}`)
     .then((response) => response.json())
     .then((data) => {
-      setCity(data.features[0].context[0].text);
+      let l = data.features[0].context.length;
+      setCity(data.features[0].context[l-3].text);
       props.db.collection("location-history").doc(`${city}`).set({
-        current_location: `${city}`
+        current_location: `${city}`,
+        current_latitude: lat,
+        current_longitude: lon
       })
       .then(() => {
         console.log("Document successfully written!");
@@ -141,10 +148,6 @@ export default function App(props) {
     .catch((error) => {
       console.error("Error adding document: ", error);
     }); 
-    
-    // db.collection("search-history").add({
-    //   city_name : city
-    // });
   }
   
   if(loading === false) { //if data has been successfully fetched.

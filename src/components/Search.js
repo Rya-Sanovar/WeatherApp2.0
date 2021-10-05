@@ -4,7 +4,7 @@ require('dotenv').config();
 // import MapboxAutocomplete from 'react-mapbox-autocomplete';
 
 function Search(props) {
-    const token = process.env.MAPBOX_API_TOKEN;
+    const token = process.env.REACT_APP_MAPBOX_API_TOKEN;
     let [search, setSearch] = useState("");
     let [suggestion1, setSuggestion1] = useState("");
     let [suggestion2, setSuggestion2] = useState("");
@@ -24,8 +24,7 @@ function Search(props) {
                         autoWrapper.classList.add("hidden");
                     }
                     fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+e.target.value+
-                    ".json?autocomplete=true&access_token="+token
-                    )
+                    ".json?autocomplete=true&access_token="+token)
                     .then((response) => response.json())
                     .then((data) => {
                         setSuggestion1(data.features[0].place_name);

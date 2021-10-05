@@ -30,9 +30,8 @@ export default function App(props) {
   let [lat,setLat] = useState("");
   let [lon,setLon] = useState("");
 
-  console.log(process.env);
-  const apiKey = process.env.OPENWEATHERMAP_API_KEY;
-  const mapboxkey = process.env.MAPBOX_API_TOKEN;
+  const apiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
+  const mapboxkey = process.env.REACT_APP_MAPBOX_API_TOKEN;
   const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
 
   let [loading, setLoading] = useState(true);

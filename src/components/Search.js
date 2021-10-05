@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+require('dotenv').config();
+
 // import MapboxAutocomplete from 'react-mapbox-autocomplete';
 
 function Search(props) {
+    const token = process.env.MAPBOX_API_TOKEN;
     let [search, setSearch] = useState("");
     let [suggestion1, setSuggestion1] = useState("");
     let [suggestion2, setSuggestion2] = useState("");
@@ -21,7 +24,7 @@ function Search(props) {
                         autoWrapper.classList.add("hidden");
                     }
                     fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+e.target.value+
-                    ".json?autocomplete=true&access_token=pk.eyJ1IjoiZWx5bWFzLW1hZ3VzIiwiYSI6ImNrdTl5aWViNTBibXgyb2xtbXgzdGVwNDUifQ.8TZFi8w6Z524c9Shn-DxRg"
+                    ".json?autocomplete=true&access_token="+token
                     )
                     .then((response) => response.json())
                     .then((data) => {

@@ -4,6 +4,7 @@ import Search from "./components/Search.js";
 import Card1 from "./components/Card1.js";
 import Card2 from "./components/Card2.js";
 require("firebase/firestore");
+require('dotenv').config();
 
 export default function App(props) {
 
@@ -29,8 +30,9 @@ export default function App(props) {
   let [lat,setLat] = useState("");
   let [lon,setLon] = useState("");
 
-  const apiKey = "df90cc57d556d7bad5a5659446b1dd68";
-  const mapboxkey = "pk.eyJ1IjoiZWx5bWFzLW1hZ3VzIiwiYSI6ImNrdTl5aWViNTBibXgyb2xtbXgzdGVwNDUifQ.8TZFi8w6Z524c9Shn-DxRg";
+  console.log(process.env);
+  const apiKey = process.env.OPENWEATHERMAP_API_KEY;
+  const mapboxkey = process.env.MAPBOX_API_TOKEN;
   const url = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=metric&appid="+apiKey;
 
   let [loading, setLoading] = useState(true);
